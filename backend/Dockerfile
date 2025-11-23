@@ -6,5 +6,9 @@ RUN gradle build -x test --no-daemon
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
+
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]

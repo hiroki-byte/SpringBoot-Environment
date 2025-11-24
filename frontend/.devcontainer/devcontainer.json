@@ -1,0 +1,17 @@
+{
+    "name": "Frontend (Next.js)",
+    "dockerComposeFile": [
+        "../../docker-compose.yml"
+    ],
+    "service": "frontend",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    }
+}

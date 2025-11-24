@@ -15,6 +15,11 @@
 ```bash
 docker-compose up --build
 ```
+※ package.jsonの修正をした場合は、以下のコマンドを実行してください。
+
+```bash
+docker-compose up --build -V
+```
 
 または、VS Code の **Dev Containers** 機能を使用することで、コンテナ内で直接開発を行うことができます。
 - **Frontend**: `frontend` フォルダを開き、"Reopen in Container" を実行。
@@ -53,3 +58,39 @@ PostgreSQL がポート `5432` で起動します。
 - ユーザー: `user`
 - パスワード: `password`
 - データベース名: `mydb`
+
+## コード品質ツール
+
+このプロジェクトには、コードの品質を維持するための静的解析ツールが導入されています。
+
+### フロントエンド (ESLint, Prettier)
+
+Dockerコンテナ内で以下のコマンドを実行することで、コードのチェックとフォーマットを行えます。
+
+```bash
+# Lintチェック (ESLint)
+docker-compose exec frontend npm run lint
+
+# Lint自動修正
+docker-compose exec frontend npm run lint:fix
+
+# コードフォーマット (Prettier)
+docker-compose exec frontend npm run format
+```
+
+### バックエンド (Checkstyle, PMD, SpotBugs)
+
+Gradleタスクを使用してチェックを実行します。
+
+```bash
+# 全てのチェックを実行
+docker-compose exec backend ./gradlew check
+
+# 個別のツールを実行する場合
+docker-compose exec backend ./gradlew checkstyleMain
+docker-compose exec backend ./gradlew pmdMain
+docker-compose exec backend ./gradlew spotbugsMain
+```
+
+> [!NOTE]
+> バックエンドのビルド設定 (`build.gradle`) では、開発の利便性を考慮して `ignoreFailures = true` が設定されており、Lintエラーがあってもビルドは成功します。

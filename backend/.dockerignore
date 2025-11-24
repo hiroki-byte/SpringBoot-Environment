@@ -1,0 +1,12 @@
+.gradle
+build
+out
+target
+.git
+.gitignore
+Dockerfile
+Dockerfile.*
+README.md
+.vscode
+.idea
+gradlew.bat

@@ -12,4 +12,5 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+# Keep container running for DevContainer
+CMD ["sleep", "infinity"]

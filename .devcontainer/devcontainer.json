@@ -1,0 +1,64 @@
+{
+    "name": "Full Stack Environment (Spring Boot + Next.js)",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "backend",
+    "workspaceFolder": "/workspace",
+    "runServices": [
+        "backend",
+        "frontend",
+        "db"
+    ],
+    "overrideCommand": false,
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "vmware.vscode-spring-boot",
+                "vscjava.vscode-gradle",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "ms-azuretools.vscode-docker"
+            ],
+            "settings": {
+                "java.jdt.ls.java.home": "/usr/lib/jvm/java-21-openjdk-amd64",
+                "eslint.workingDirectories": [
+                    "/workspace/frontend"
+                ],
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "[java]": {
+                    "editor.defaultFormatter": "redhat.java"
+                },
+                "files.exclude": {
+                    "**/.gradle": true,
+                    "**/build": true,
+                    "**/.next": true,
+                    "**/node_modules": true
+                }
+            }
+        }
+    },
+    "forwardPorts": [
+        3000,
+        8080,
+        5432
+    ],
+    "portsAttributes": {
+        "3000": {
+            "label": "Frontend (Next.js)",
+            "onAutoForward": "notify"
+        },
+        "8080": {
+            "label": "Backend (Spring Boot)",
+            "onAutoForward": "notify"
+        },
+        "5432": {
+            "label": "Database (PostgreSQL)",
+            "onAutoForward": "silent"
+        }
+    },
+    "postCreateCommand": "echo '🚀 DevContainer ready! Frontend: http://localhost:3000, Backend: http://localhost:8080'",
+    "remoteUser": "root"
+}

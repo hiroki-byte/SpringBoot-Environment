@@ -14,7 +14,7 @@ services:
     volumes:
       - ./backend:/app
       - gradle-cache:/root/.gradle
-    command: ./gradlew bootRun
+      - .:/workspace:cached
     networks:
       - app-network
 
@@ -27,6 +27,7 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+      - .:/workspace:cached
     environment:
       - WATCHPACK_POLLING=true
     networks:

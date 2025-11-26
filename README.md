@@ -8,8 +8,9 @@
 
 ## 起動方法
 
-1. リポジトリをクローンします（またはダウンロードします）。
-2. プロジェクトのルートディレクトリで以下のコマンドを実行します。
+### 開発環境 (Development)
+
+開発時は、ホットリロードが有効な構成で起動します。
 
 ```bash
 docker-compose up --build
@@ -20,8 +21,20 @@ docker-compose up --build
 docker-compose up --build -V
 ```
 
-3. 初回起動時はビルドに時間がかかる場合があります。
-4. 以下のURLにアクセスして動作を確認してください。
+または、VS Code の **Dev Containers** 機能を使用することで、コンテナ内で直接開発を行うことができます。
+- **Frontend**: `frontend` フォルダを開き、"Reopen in Container" を実行。
+- **Backend**: `backend` フォルダを開き、"Reopen in Container" を実行。
+
+### 本番環境 (Production)
+
+本番デプロイ時は、最適化されたビルドを使用する以下のコマンドを実行してください。
+
+```bash
+docker-compose -f docker-compose.prod.yml up --build
+```
+
+初回起動時はビルドに時間がかかる場合があります。
+以下のURLにアクセスして動作を確認してください。
 
 - **フロントエンド**: [http://localhost:3000](http://localhost:3000)
 - **バックエンド (Swagger UI)**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
@@ -31,7 +44,8 @@ docker-compose up --build -V
 
 - `backend/`: Spring Boot アプリケーション (Gradle)
 - `frontend/`: Next.js アプリケーション (TypeScript)
-- `docker-compose.yml`: Docker 構成ファイル
+- `docker-compose.yml`: Docker 構成ファイル (開発用)
+- `docker-compose.prod.yml`: Docker 構成ファイル (本番用)
 
 ## 開発について
 

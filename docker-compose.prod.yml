@@ -2,7 +2,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     ports:
       - "8080:8080"
     environment:
@@ -11,24 +11,15 @@ services:
       - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     depends_on:
       - db
-    volumes:
-      - ./backend:/app
-      - gradle-cache:/root/.gradle
-    command: ./gradlew bootRun
     networks:
       - app-network
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    environment:
-      - WATCHPACK_POLLING=true
     networks:
       - app-network
 
@@ -38,8 +29,6 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -51,4 +40,3 @@ networks:
 
 volumes:
   db-data:
-  gradle-cache:
